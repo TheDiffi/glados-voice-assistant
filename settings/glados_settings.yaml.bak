@@ -4,7 +4,7 @@
 assistant:
 
   # What the assistant is listening for?
-  trigger_word: "robot"
+  trigger_word: "hey robot"
 
 hardware:
   # Which sound card to use?
@@ -39,4 +39,4 @@ tts:
   api: ""
 
   # TTS Cache - Folder to store TTS samples, absolute path
-  cache_folder: "D:/David/Programming/VoiceAssistant/Nerdaxic_VA/glados-tts-cache"
+  cache_folder: "D:/David/Programming/Voice Assistant/Nerdaxic_VA/glados-tts-cache"

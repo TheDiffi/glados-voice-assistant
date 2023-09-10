@@ -1,4 +1,5 @@
 import os
+import traceback
 import wave
 from random import randint
 import _thread as thread
@@ -11,6 +12,12 @@ import urllib.parse
 import re
 import json
 import random
+from sys import modules as mod
+
+try:
+    import winsound
+except ImportError:
+    from subprocess import call
 
 import shutil
 from subprocess import call
@@ -26,7 +33,13 @@ synthFolder = glados_settings.settings["tts"]["cache_folder"] + "/"
 
 
 def playFile(filename):
-	call(["aplay", "-q", filename])	
+	# Play audio file
+	print(filename)
+	if "winsound" in mod:
+		winsound.PlaySound(filename, winsound.SND_FILENAME)
+	else:
+		call(["aplay","-q", filename])
+	
 
 # Turns units etc into speakable text
 def cleanTTSLine(line):
@@ -44,8 +57,10 @@ def cleanTTSFile(line):
 	filename = "GLaDOS-tts-"+cleanTTSLine(line).replace(" ", "-")
 	filename = filename.replace("!", "")
 	filename = filename.replace("°c", "degrees celcius")
+	filename = filename.replace("?", "")
+	filename = filename.replace(":", "")
 	filename = filename.replace(",", "")+".wav"
-
+	
 	return filename
 
 # Return the path of a TTS sample if found in the library
@@ -88,7 +103,7 @@ def fetchTTSSample(line):
 
 ## Speak out the line
 def speak(line, cache=False):
-	started_speaking()
+	# started_speaking()
 
 	line = cleanTTSLine(line)
 	# Generate filename
@@ -123,10 +138,15 @@ def speak(line, cache=False):
 			playFile("./audio/GLaDOS-tts-temp-output.wav")
 			
 			if(cache):
-				shutil.copyfile("audio/GLaDOS-tts-temp-output.wav", synthFolder+cleanTTSFile(line))
+				try:
+					shutil.copyfile("./audio/GLaDOS-tts-temp-output.wav", synthFolder+cleanTTSFile(line))
 
-	stopped_speaking()
-	eye_position_default()
+				except Exception as e:
+					print("Error: Could not cache TTS sample")
+					traceback.print_exc()
+
+	#stopped_speaking()
+	#eye_position_default()
 
 
 # Load greetings from a json file into a "playlist"
