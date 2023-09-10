@@ -93,7 +93,7 @@ def test2():
     handle_speech()
 
 
-a = input("0 for start up, 1-9 for test:")
+a = input("0 for start up, 1-2 for test:")
 
 if a == "1":
     test1()

@@ -171,9 +171,8 @@ command_list.append(
 
 
 ##### PLEASANTRIES ###########################
-command_list.append((lambda x: "how are you" in x, lambda x: speak("I am fine")))
 
-command_list.append(
+''' command_list.append(
     (
         lambda x: "who are" in x,
         lambda x: speak(
@@ -182,7 +181,8 @@ command_list.append(
         ),
     )
 )
-
+'''
+'''
 command_list.append(
     (
         lambda x: "can you do" in x,
@@ -192,8 +192,8 @@ command_list.append(
         ),
     )
 )
-
-
+'''
+'''
 def cmd_mood():
     speak("Well thanks for asking.", cache=True)
     speak(
@@ -204,7 +204,7 @@ def cmd_mood():
 
 
 command_list.append((lambda x: "how are you" in x, cmd_mood))
-
+'''
 
 command_list.append(
     (

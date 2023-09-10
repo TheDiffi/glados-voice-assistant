@@ -4,7 +4,7 @@
 assistant:
 
   # What the assistant is listening for?
-  trigger_word: "robot"
+  trigger_word: "hey robot"
 
 hardware:
   # Which sound card to use?
